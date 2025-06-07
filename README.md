@@ -1,16 +1,9 @@
-# 💸 Personal Credit Card Transaction Analyzer 
+# 💸 Credit Card Transaction Categorizer & Budget Forecasting
 (SQL + ML + Streamlit)
 
 A data science project built using my **own real credit card transaction data** from April 2024 to April 2025. This project applies **SQL, Python, and ML** to analyze personal finance patterns, detect anomalies, and visualize spending trends using **Streamlit**.
 
----
-
-## 📌 Why This Project Stands Out
-
-- Real-world, **self-sourced dataset**: Credit card transactions from my daily life.
-- Combines **SQL, ML, and Streamlit** into one cohesive pipeline.
-- Focuses on **fraud detection** and **financial self-awareness**.
-- Brings together **manual intuition** and **automated analysis** — no black-box categorization.
+> Predict categories from messy transaction descriptions and build monthly spending dashboards — powered by NLP, machine learning, and time-series forecasting.
 
 ---
 
@@ -22,6 +15,7 @@ A data science project built using my **own real credit card transaction data** 
 - **Jupyter Notebook**: Analysis + Modeling
 
 ---
+
 
 ## 📂 Data Overview
 
@@ -45,23 +39,62 @@ A data science project built using my **own real credit card transaction data** 
 - Converted date formats and normalized descriptions
 - Made all **spending negative** and **credit card payments positive**
 
+```python
+def clean_description(desc):
+    desc = desc.lower()
+    desc = re.sub(r'[^a-zA-Z\s]', '', desc)
+    desc = re.sub(r'\s+', ' ', desc).strip()
+    return desc
+```
+
 ### 2. Manual Categorization
 - Used custom rules to map transaction descriptions to categories
 - Added a `category` column using personal insight
 
-### 3. SQL Aggregation
+### 3. Feature Engineering (Text → Vectors)
+
+TF-IDF (Simple & Effective)
+
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+vectorizer = TfidfVectorizer()
+X = vectorizer.fit_transform(df['cleaned_description'])
+
+### 4. Train the Classifier
+
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, df['Category'], test_size=0.2)
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+Save the model and vectorizer:
+
+joblib.dump(model, 'models/classifier.pkl')
+joblib.dump(vectorizer, 'models/vectorizer.pkl')
+
+### 5. Predict New Transactions
+
+def predict_category(text):
+    cleaned = clean_description(text)
+    vec = vectorizer.transform([cleaned])
+    return model.predict(vec)[0]
+
+    
+### 6. SQL Aggregation
 - Used SQL to query average spend, category-wise monthly trends, etc.
 - Flagged potential outliers (e.g., unusually high daily spending)
 
-### 4. Feature Engineering
+### 7. Feature Engineering
 - Created new features: transaction frequency, weekday vs. weekend spending, etc.
 
-### 5. ML Fraud Detection
-- Labeled small set of transactions as “suspicious” (manual + threshold-based)
-- Trained a **Random Forest Classifier** to detect anomalies
-- Evaluated using confusion matrix and accuracy/recall scores
+### 8. Forecast Future Spending
+Use time series tools like Prophet or ARIMA:
+Group totals by Month x Category
+Predict next month's top 3 categories based on historical data
 
-### 6. Streamlit Dashboard
+### 9. Streamlit Dashboard
 - Built an interactive web app to explore:
   - Weekly/monthly spending
   - Category-wise expenses
