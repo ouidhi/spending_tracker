@@ -17,9 +17,9 @@ def clean_description(desc):
 def preprocess(df):
     df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
     df = df.dropna(subset=['Date']) 
-    df['NewDescription'] = df['Description'].apply(clean_description)
     df['Month'] = df['Date'].dt.strftime('%b')
     df['Year'] = df['Date'].dt.year
+    df['NewDescription'] = df['Description'].apply(clean_description)
     df['Amount'] = pd.to_numeric(df['Amount'])
     return df
 
@@ -66,17 +66,20 @@ if uploaded_file:
         st.subheader("Spending by Category")
         st.bar_chart(df.groupby('Category')['Amount'].sum())
         
+        df['YearMonth'] = df['Date'].dt.to_period('M').astype(str)
+        monthly_trend = df.groupby('YearMonth')['Amount'].sum().reset_index()
+        st.line_chart(monthly_trend.set_index('YearMonth'))
+
         st.subheader("Monthly Trend")
         st.line_chart(df.groupby(['Year', 'Month'])['Amount'].sum())
 
         st.subheader("Raw Categorized Data")
         st.dataframe(df)
 
-
     else:
         st.error("CSV must contain 'Date', 'Description' and 'Amount' columns.")
 
 
-df1 = pd.read_csv('cibc-4.csv')
-df1 = preprocess(df1)
-print(df1.dtypes)
+
+
+
