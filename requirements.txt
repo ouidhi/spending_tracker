@@ -6,4 +6,4 @@ regex
 sentence-transformers
 plotly
 matplotlib 
-torch>=1.13,<2.0  # safe torch version for CPU
+torch
