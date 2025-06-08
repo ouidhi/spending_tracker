@@ -7,7 +7,7 @@ from sentence_transformers import SentenceTransformer
 import streamlit as st
 
 model = joblib.load('models/logistic_bert_classifier.pkl')
-bert = SentenceTransformer('all-MiniLM-L6-v2')
+bert = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
 
 def clean_description(desc):
     desc = desc.lower()
