@@ -76,7 +76,7 @@ if uploaded_file:
 
         # dataframe
         st.subheader("Raw Categorized Data")
-        df = df[['Month', 'Year', 'Description', 'Amount', 'Category]]
+        df = df[['Month', 'Year', 'Description', 'Amount', 'Category']]
         st.dataframe(df)
 
     else:
