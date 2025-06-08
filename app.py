@@ -20,8 +20,6 @@ def preprocess(df):
     df['Year'] = df['Date'].dt.year
     df['NewDescription'] = df['Description'].apply(clean_description)
     df['Amount'] = pd.to_numeric(df['Amount'])
-    df = df[['Date', 'Month', 'Year', 'Description', 'NewDescription', 'Amount', 'Type']]
-
     return df
 
 def categorizer(desc):
@@ -56,6 +54,8 @@ if uploaded_file:
 
     if all(col in df.columns for col in ['Date', 'Description', 'Amount']):
         df = preprocess(df)
+        df = df[['Date', 'Month', 'Year', 'Description', 'NewDescription', 'Amount', 'Type']]
+
 
         # BERT 
         X_input = bert.encode(df['NewDescription'])
