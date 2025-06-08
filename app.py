@@ -65,11 +65,21 @@ if uploaded_file:
         
         # by category 
         st.subheader("Spending by Category")
-        st.bar_chart(df.groupby('Category')['Amount'].sum())
+        #st.bar_chart(df.groupby('Category')['Amount'].sum())
+
+        # Group data by category and sum amounts
+        category_sums = df.groupby('Category')['Amount'].sum()
+
+        # Plot pie chart
+        fig, ax = plt.subplots()
+        ax.pie(category_sums, labels=category_sums.index, autopct='%1.1f%%', startangle=90)
+        ax.axis('equal')  # Equal aspect ratio ensures pie chart is a circle
+
+        st.pyplot(fig)
 
         # by time
         monthly = df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
-        monthly['Date'] = pd.to_datetime(monthly['Year'].astype(str) + '-' + monthly['Month'] + '-01', format='%Y-%b-%d')
+        # monthly['Date'] = pd.to_datetime(monthly['Year'].astype(str) + '-' + monthly['Month'] + '-01', format='%Y-%b-%d')
         monthly['Label'] = monthly['Month'] + ' ' + monthly['Year'].astype(str) 
         monthly = monthly.sort_values('Date')
         st.line_chart(monthly.set_index('Label')['Amount'])
