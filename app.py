@@ -68,7 +68,6 @@ if uploaded_file:
 
         # Group data by category and sum amounts
         category_sums = df.groupby('Category')['Amount'].sum()
-
         # Plot pie chart
         fig, ax = plt.subplots()
         ax.pie(category_sums, labels=category_sums.index, autopct='%1.1f%%', startangle=90)
