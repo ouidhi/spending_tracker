@@ -20,6 +20,8 @@ def preprocess(df):
     df['Year'] = df['Date'].dt.year
     df['NewDescription'] = df['Description'].apply(clean_description)
     df['Amount'] = pd.to_numeric(df['Amount'])
+    df = df[['Date', 'Month', 'Year', 'Description', 'NewDescription', 'Amount', 'Type']]
+
     return df
 
 def categorizer(desc):
