@@ -79,7 +79,7 @@ if uploaded_file:
         # dataframe
         st.subheader("Raw Categorized Data")
         df = df[['Month', 'Year', 'Description', 'Amount', 'Category']]
-        st.dataframe(df)
+        st.dataframe(df) 
 
     else:
         st.error("CSV must contain 'Date', 'Description' and 'Amount' columns.")
