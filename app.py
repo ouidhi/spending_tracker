@@ -62,13 +62,19 @@ if uploaded_file:
         st.success("Categorization complete!")
 
         # plots
+        
+        # by category 
         st.subheader("Spending by Category")
         st.bar_chart(df.groupby('Category')['Amount'].sum())
-        
+
+        # by time
         monthly = df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
         monthly['Period'] = monthly['Month'] + ' ' + monthly['Year'].astype(str)
+        monthly.sort_values(by= 'Period', inplace= True)
+
         st.line_chart(data=monthly.set_index('Period')['Amount'])
 
+        # dataframe
         st.subheader("Raw Categorized Data")
         st.dataframe(df)
 
