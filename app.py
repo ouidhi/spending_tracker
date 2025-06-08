@@ -63,7 +63,7 @@ if uploaded_file:
 
         # plots
         
-        # by category 
+        # by category ------------
         st.subheader("Spending by Category")
 
         # Group data by category and sum amounts
@@ -75,8 +75,9 @@ if uploaded_file:
 
         st.pyplot(fig)
 
-        # by time
+        # by time -----------
         monthly = df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
+        monthly['Date'] = pd.to_datetime(monthly['Year'].astype(str) + '-' + monthly['Month'] + '-01', format='%Y-%b-%d')
         monthly['Label'] = monthly['Month'] + ' ' + monthly['Year'].astype(str) 
         monthly = monthly.sort_values('Date')
         st.line_chart(monthly.set_index('Label')['Amount'])
