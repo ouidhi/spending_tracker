@@ -65,10 +65,6 @@ if uploaded_file:
         # plots
         st.subheader("Spending by Category")
         st.bar_chart(df.groupby('Category')['Amount'].sum())
-        
-        df['YearMonth'] = df['Date'].dt.to_period('M').astype(str)
-        monthly_trend = df.groupby('YearMonth')['Amount'].sum().reset_index()
-        st.line_chart(monthly_trend.set_index('YearMonth'))
 
         st.subheader("Monthly Trend")
         st.line_chart(df.groupby(['Year', 'Month'])['Amount'].sum())
