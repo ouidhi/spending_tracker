@@ -29,7 +29,7 @@ def categorizer(desc):
         return "Cafe"
     elif re.search(r"(walmart|loblaws|nofrills|grocery|metro|johndanielles|market|hmart|fortinos|subzimandi|7 eleven|convenience|eleven)", desc):
         return "Groceries"
-    elif re.search(r"(ubercanadatoronto|lyft|taxi|presto|shell|petro)", desc):
+    elif re.search(r"(ubercanadatoronto|ubertrip|lyft|taxi|presto|shell|petro)", desc):
         return "Transport"
     elif re.search(r"(netflix|spotify|subscription|disneyplus|bill|insurance|virginplus)", desc):
         return "Subscription"
