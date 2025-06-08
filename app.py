@@ -1,13 +1,12 @@
 import pandas as pd
 import re
 import joblib
-import matplotlib.pyplot as plt
+import matplotlib as plt
 from sentence_transformers import SentenceTransformer
-
 import streamlit as st
 
 model = joblib.load('models/logistic_bert_classifier.pkl')
-bert = SentenceTransformer('all-MiniLM-L6-v2', device='cpu')
+bert = SentenceTransformer('all-MiniLM-L6-v2')
 
 def clean_description(desc):
     desc = desc.lower()
@@ -65,6 +64,10 @@ if uploaded_file:
         # plots
         st.subheader("Spending by Category")
         st.bar_chart(df.groupby('Category')['Amount'].sum())
+        
+        monthly = df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
+        monthly['Period'] = monthly['Month'] + ' ' + monthly['Year'].astype(str)
+        st.line_chart(data=monthly.set_index('Period')['Amount'])
 
         st.subheader("Monthly Trend")
         st.line_chart(df.groupby(['Year', 'Month'])['Amount'].sum())
