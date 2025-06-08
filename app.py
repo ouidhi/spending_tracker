@@ -68,11 +68,11 @@ if uploaded_file:
         st.bar_chart(df.groupby('Category')['Amount'].sum())
 
         # by time
-        monthly = df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
-        monthly['Period'] = monthly['Month'] + ' ' + monthly['Year'].astype(str)
-        monthly.sort_values(by= 'Period', inplace= True)
-
-        st.line_chart(data=monthly.set_index('Period')['Amount'])
+        monthly['Label'] = monthly['Month'] + ' ' + monthly['Year'].astype(str)
+        monthly = monthly.sort_values('Date')
+        st.line_chart(monthly.set_index('Label')['Amount'])
+        
+        #st.line_chart(data=monthly.set_index('Period')['Amount'])
 
         # dataframe
         st.subheader("Raw Categorized Data")
