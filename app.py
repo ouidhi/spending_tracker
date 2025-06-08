@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 import joblib
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from sentence_transformers import SentenceTransformer
 import streamlit as st
 
