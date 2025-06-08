@@ -69,9 +69,6 @@ if uploaded_file:
         monthly['Period'] = monthly['Month'] + ' ' + monthly['Year'].astype(str)
         st.line_chart(data=monthly.set_index('Period')['Amount'])
 
-        st.subheader("Monthly Trend")
-        st.line_chart(df.groupby(['Year', 'Month'])['Amount'].sum())
-
         st.subheader("Raw Categorized Data")
         st.dataframe(df)
 
