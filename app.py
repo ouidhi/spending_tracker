@@ -65,25 +65,18 @@ if uploaded_file:
         # plots
         st.subheader("Spending by Category")
         st.bar_chart(df.groupby('Category')['Amount'].sum())
-
-        monthly_sum = df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
-        # Sort by Year and Month (convert Month to numeric for sorting)
-        month_num = {'Jan':1,'Feb':2,'Mar':3,'Apr':4,'May':5,'Jun':6,'Jul':7,'Aug':8,'Sep':9,'Oct':10,'Nov':11,'Dec':12}
-        monthly_sum['Month_num'] = monthly_sum['Month'].map(month_num)
-        monthly_sum = monthly_sum.sort_values(['Year', 'Month_num'])
-
-        # Create a proper datetime for x-axis
-        monthly_sum['YearMonth'] = pd.to_datetime(monthly_sum['Year'].astype(str) + '-' + monthly_sum['Month_num'].astype(str))
-
-        st.subheader("Spending by Category")
-        st.bar_chart(df.groupby('Category')['Amount'].sum())
         
-        # Now plot using YearMonth as index
         st.subheader("Monthly Trend")
-        st.line_chart(monthly_sum.set_index('YearMonth')['Amount'])
+        st.line_chart(df.groupby(['Year', 'Month'])['Amount'].sum())
 
         st.subheader("Raw Categorized Data")
         st.dataframe(df)
 
+
     else:
         st.error("CSV must contain 'Date', 'Description' and 'Amount' columns.")
+
+
+df1 = pd.read_csv('cibc-4.csv')
+df1 = preprocess(df1)
+print(df1.dtypes)
