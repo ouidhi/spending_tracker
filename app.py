@@ -75,13 +75,12 @@ if uploaded_file:
         # Create a proper datetime for x-axis
         monthly_sum['YearMonth'] = pd.to_datetime(monthly_sum['Year'].astype(str) + '-' + monthly_sum['Month_num'].astype(str))
 
+        st.subheader("Spending by Category")
+        st.bar_chart(df.groupby('Category')['Amount'].sum())
+        
         # Now plot using YearMonth as index
         st.subheader("Monthly Trend")
         st.line_chart(monthly_sum.set_index('YearMonth')['Amount'])
-
-
-        st.subheader("Monthly Trend")
-        st.line_chart(df.groupby(['Year', 'Month'])['Amount'].sum())
 
         st.subheader("Raw Categorized Data")
         st.dataframe(df)
