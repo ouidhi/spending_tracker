@@ -15,7 +15,8 @@ def clean_description(desc):
     return desc
 
 def preprocess(df):
-    df['Date'] = pd.to_datetime(df['Date'])
+    df['Date'] = pd.to_datetime(df['Date'], errors='coerce')
+    df = df.dropna(subset=['Date']) 
     df['NewDescription'] = df['Description'].apply(clean_description)
     df['Month'] = df['Date'].dt.strftime('%b')
     df['Year'] = df['Date'].dt.year
@@ -64,6 +65,20 @@ if uploaded_file:
         # plots
         st.subheader("Spending by Category")
         st.bar_chart(df.groupby('Category')['Amount'].sum())
+
+        monthly_sum = df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
+        # Sort by Year and Month (convert Month to numeric for sorting)
+        month_num = {'Jan':1,'Feb':2,'Mar':3,'Apr':4,'May':5,'Jun':6,'Jul':7,'Aug':8,'Sep':9,'Oct':10,'Nov':11,'Dec':12}
+        monthly_sum['Month_num'] = monthly_sum['Month'].map(month_num)
+        monthly_sum = monthly_sum.sort_values(['Year', 'Month_num'])
+
+        # Create a proper datetime for x-axis
+        monthly_sum['YearMonth'] = pd.to_datetime(monthly_sum['Year'].astype(str) + '-' + monthly_sum['Month_num'].astype(str))
+
+        # Now plot using YearMonth as index
+        st.subheader("Monthly Trend")
+        st.line_chart(monthly_sum.set_index('YearMonth')['Amount'])
+
 
         st.subheader("Monthly Trend")
         st.line_chart(df.groupby(['Year', 'Month'])['Amount'].sum())
