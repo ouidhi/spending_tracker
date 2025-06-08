@@ -47,7 +47,7 @@ def categorizer(desc):
 st.title("Personal Spending Analyzer")
 st.write("Upload your credit card CSV file and get categorized insights!")
 
-uploaded_file = st.file_uploader("Chose a CSV file", type= "csv")
+uploaded_file = st.file_uploader("Choose a CSV file", type= "csv")
 
 if uploaded_file:
     df = pd.read_csv(uploaded_file)
