@@ -65,7 +65,6 @@ if uploaded_file:
         
         # by category 
         st.subheader("Spending by Category")
-        #st.bar_chart(df.groupby('Category')['Amount'].sum())
 
         # Group data by category and sum amounts
         category_sums = df.groupby('Category')['Amount'].sum()
@@ -79,7 +78,6 @@ if uploaded_file:
 
         # by time
         monthly = df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
-        # monthly['Date'] = pd.to_datetime(monthly['Year'].astype(str) + '-' + monthly['Month'] + '-01', format='%Y-%b-%d')
         monthly['Label'] = monthly['Month'] + ' ' + monthly['Year'].astype(str) 
         monthly = monthly.sort_values('Date')
         st.line_chart(monthly.set_index('Label')['Amount'])
