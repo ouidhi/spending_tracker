@@ -76,6 +76,8 @@ if uploaded_file:
         st.pyplot(fig)
 
         # by time -----------
+        st.subheader("Monthly Spending")
+        
         monthly = df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
         monthly['Date'] = pd.to_datetime(monthly['Year'].astype(str) + '-' + monthly['Month'] + '-01', format='%Y-%b-%d')
         monthly['Label'] = monthly['Month'] + ' ' + monthly['Year'].astype(str) 
