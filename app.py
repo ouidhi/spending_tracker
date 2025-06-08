@@ -54,8 +54,6 @@ if uploaded_file:
 
     if all(col in df.columns for col in ['Date', 'Description', 'Amount']):
         df = preprocess(df)
-        df = df[['Date', 'Month', 'Year', 'Description', 'NewDescription', 'Amount', 'Type']]
-
 
         # BERT 
         X_input = bert.encode(df['NewDescription'])
@@ -78,6 +76,7 @@ if uploaded_file:
 
         # dataframe
         st.subheader("Raw Categorized Data")
+        df = df[['Month', 'Year', 'Description', 'Amount', 'Category]]
         st.dataframe(df)
 
     else:
