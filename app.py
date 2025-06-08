@@ -69,11 +69,12 @@ if uploaded_file:
 
         # by time
         monthly = df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
-        monthly['Label'] = monthly['Month'] + ' ' + monthly['Year'].astype(str)
+        monthly['Date'] = pd.to_datetime(monthly['Year'].astype(str) + '-' + monthly['Month'] + '-01', format='%Y-%b-%d')
         monthly = monthly.sort_values('Date')
+        monthly['Label'] = monthly['Month'] + ' ' + monthly['Year'].astype(str) 
         st.line_chart(monthly.set_index('Label')['Amount'])
-        
-        #st.line_chart(data=monthly.set_index('Period')['Amount'])
+
+        # st.line_chart(data=monthly.set_index('Period')['Amount'])
 
         # dataframe
         st.subheader("Raw Categorized Data")
