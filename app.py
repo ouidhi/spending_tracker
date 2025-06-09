@@ -97,6 +97,12 @@ if uploaded_file:
                 fig = px.pie(month_sum, names='Category', values='Amount')
                 st.plotly_chart(fig)
 
+        # 4 top 3 
+        top3 = filtered_df.groupby('Category')['Amount'].sum().sort_values(ascending=False).head(3).reset_index()
+        fig = px.bar(top3, x='Category', y='Amount', title='Top 3 Spending Categories', color='Category')
+        st.plotly_chart(fig)
+
+
         # dataframe
         st.subheader("Raw Categorized Data")
         filtered_df = filtered_df[['Month', 'Year', 'Description', 'Amount', 'Category']]
