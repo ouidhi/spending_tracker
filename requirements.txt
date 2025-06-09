@@ -1,10 +1,10 @@
 pandas
 scikit-learn
-streamlit
+streamlit>=1.32
 joblib
 regex
 sentence-transformers
 plotly
 matplotlib 
 torch
-plotly
+plotly>=5.20
