@@ -8,13 +8,65 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    .stApp {
-        background-color: #b3d7b3;
+    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
+
+    /* Change font + overall background */
+    html, body, [class*="css"] {
+        font-family: 'Quicksand', sans-serif;
+        background-color: #E6F4EA; /* matcha green */
+        color: #333333;
+    }
+
+    /* Header / subheader colors */
+    h1, h2, h3, .stTitle, .stSubtitle {
+        color: #E96D96; /* soft pink */
+    }
+
+    /* Floating stickers */
+    .sticker1 {
+        position: fixed;
+        top: 60px;
+        right: 40px;
+        z-index: 1000;
+    }
+
+    .sticker2 {
+        position: fixed;
+        bottom: 60px;
+        left: 40px;
+        z-index: 1000;
+    }
+
+    .sticker3 {
+        position: fixed;
+        bottom: 100px;
+        right: 100px;
+        z-index: 1000;
+    }
+
+    /* Optional: round corners + shadow for main content */
+    .block-container {
+        border-radius: 20px;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
     </style>
+
+    <!-- Floating sticker images -->
+    <div class="sticker1">
+        <img src="https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.gif" width="100">
+    </div>
+    <div class="sticker2">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjVmZmJkZDMxZGIyY2I5ZGRiYzEzYjQ3YjQwZGM1MzU5ZDg4MTE1YSZjdD1n/f9k1tV7HyORcngKF8v/giphy.gif" width="90">
+    </div>
+    <div class="sticker3">
+        <img src="https://media.giphy.com/media/xUOxf48S2WvTg6rapa/giphy.gif" width="80">
+    </div>
     """,
     unsafe_allow_html=True
 )
+
 
 
 model = joblib.load('models/logistic_bert_classifier.pkl')
