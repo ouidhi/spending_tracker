@@ -85,7 +85,13 @@ if uploaded_file:
         fig = px.bar(monthly, x='Date', y='Amount', title='Spending by Month')
         st.plotly_chart(fig)
 
-        # 3 by category per month
+        # 3 top 3 
+        top3 = filtered_df.groupby('Category')['Amount'].sum().sort_values(ascending=False).head(3).reset_index()
+        fig = px.bar(top3, x='Category', y='Amount', title='Top 3 Spending Categories', color='Category')
+        st.plotly_chart(fig)
+
+        
+        # 4 by category per month
         st.subheader("Spending by Category (Each Month)")
         months = filtered_df['Month'].unique()
 
@@ -97,11 +103,6 @@ if uploaded_file:
                 fig = px.pie(month_sum, names='Category', values='Amount')
                 st.write("Rendering plot for", month)
                 st.plotly_chart(fig)
-
-        # 4 top 3 
-        top3 = filtered_df.groupby('Category')['Amount'].sum().sort_values(ascending=False).head(3).reset_index()
-        fig = px.bar(top3, x='Category', y='Amount', title='Top 3 Spending Categories', color='Category')
-        st.plotly_chart(fig)
 
 
         # dataframe
