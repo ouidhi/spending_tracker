@@ -5,34 +5,7 @@ import matplotlib.pyplot as plt
 from sentence_transformers import SentenceTransformer
 import streamlit as st
 
-st.markdown(
-    """
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap');
 
-    /* Change font + overall background */
-    html, body, [class*="css"] {
-        font-family: 'Quicksand', sans-serif;
-        background-color: #E6F4EA; /* matcha green */
-        color: #333333;
-    }
-
-    /* Header / subheader colors */
-    h1, h2, h3, .stTitle, .stSubtitle {
-        color: #E96D96; /* soft pink */
-    }
-    
-
-    /* Optional: round corners + shadow for main content */
-    .block-container {
-        border-radius: 20px;
-        padding: 20px;
-        background-color: rgba(255, 255, 255, 0.8);
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
-    </style>
-
-)
 
 model = joblib.load('models/logistic_bert_classifier.pkl')
 bert = SentenceTransformer('all-MiniLM-L6-v2')
