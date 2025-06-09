@@ -5,26 +5,6 @@ import matplotlib.pyplot as plt
 from sentence_transformers import SentenceTransformer
 import streamlit as st
 
-st.markdown(
-    """
-    <style>
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
-
-    html, body, [class*="css"] {
-        font-family: 'Playfair Display', serif;
-        background-color: #fefefe;
-        color: #333;
-    }
-
-    h1, h2, h3 {
-        color: #36454F;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-
 model = joblib.load('models/logistic_bert_classifier.pkl')
 bert = SentenceTransformer('all-MiniLM-L6-v2')
 
