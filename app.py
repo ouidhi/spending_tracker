@@ -66,7 +66,7 @@ if uploaded_file:
 
         # plots
         
-        # by category ------------
+        # 1 by category ------------
         st.subheader("Spending by Category")
 
         import plotly.express as px
@@ -76,7 +76,7 @@ if uploaded_file:
         st.plotly_chart(fig)
 
 
-        # by time -----------
+        # 2 by time -----------
         st.subheader("Monthly Spending")
         monthly = filtered_df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
         monthly['Date'] = pd.to_datetime(monthly['Year'].astype(str) + '-' + monthly['Month'] + '-01')
@@ -84,6 +84,18 @@ if uploaded_file:
 
         fig = px.bar(monthly, x='Date', y='Amount', title='Spending by Month')
         st.plotly_chart(fig)
+
+        # 3 by category per month
+        st.subheader("Spending by Category (Each Month)")
+        months = filtered_df['Month'].unique()
+
+        for month in sorted(months, key=lambda m: pd.to_datetime(m, format='%b').month):
+            month_data = filtered_df[filtered_df['Month'] == month]
+            if not month_data.empty:
+                st.markdown(f"### {month}")
+                month_sum = month_data.groupby('Category')['Amount'].sum().reset_index()
+                fig = px.pie(month_sum, names='Category', values='Amount')
+                st.plotly_chart(fig)
 
         # dataframe
         st.subheader("Raw Categorized Data")
