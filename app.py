@@ -104,6 +104,38 @@ if uploaded_file:
                 fig = px.pie(month_sum, names='Category', values='Amount')
                 st.write("Rendering plot for", month)
                 st.plotly_chart(fig)
+                
+        # 5️⃣ Top 3 Categories Per Month
+        st.subheader("Top 3 Categories for Each Month")
+
+        # Get unique months ordered by date
+        month_year_combos = (
+            filtered_df[['Month', 'Year']]
+            .drop_duplicates()
+            .sort_values(by=['Year', 'Month'], key=lambda x: pd.to_datetime(x, format='%Y-%b'))
+        )
+
+        for _, row in month_year_combos.iterrows():
+            month = row['Month']
+            year = row['Year']
+    
+            # Filter for that month/year
+            subset = filtered_df[(filtered_df['Month'] == month) & (filtered_df['Year'] == year)]
+    
+            # Group and get top 3
+            top3_month = (
+                subset.groupby('Category')['Amount']
+                .sum()
+                .sort_values(ascending=False)
+                .head(3)
+                .reset_index()
+            )
+    
+            if not top3_month.empty:
+                label = f"{month} {year}"
+                st.markdown(f"### {label}")
+                fig = px.bar(top3_month, x='Category', y='Amount', title=f"Top 3 Categories - {label}", color='Category')
+                st.plotly_chart(fig)
 
 
         # dataframe
