@@ -20,7 +20,8 @@ def preprocess(df):
     df['Year'] = df['Date'].dt.year
     df['NewDescription'] = df['Description'].apply(clean_description)
     df['Amount'] = pd.to_numeric(df['Amount'])
-    return df
+    filtered_df = df[df['Category'] != 'Credit Card Payment']
+    return filtered_df
 
 def categorizer(desc):
     if re.search(r"(shoppers|rexall|pharmacy|drug)", desc):
@@ -66,14 +67,12 @@ if uploaded_file:
         # by category ------------
         st.subheader("Spending by Category")
 
-        # Group data by category and sum amounts
-        category_sums = df.groupby('Category')['Amount'].sum()
-        # Plot pie chart
-        fig, ax = plt.subplots()
-        ax.pie(category_sums, labels=category_sums.index, autopct='%1.1f%%', startangle=90)
-        ax.axis('equal')  # Equal aspect ratio ensures pie chart is a circle
+        import plotly.express as px
 
-        st.pyplot(fig)
+        category_sums = filtered_df.groupby('Category')['Amount'].sum().reset_index()
+        fig = px.pie(category_sums, names='Category', values='Amount', title='Spending by Category')
+        st.plotly_chart(fig)
+
 
         # by time -----------
         st.subheader("Monthly Spending")
