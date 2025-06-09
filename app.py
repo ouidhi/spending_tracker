@@ -5,6 +5,18 @@ import matplotlib.pyplot as plt
 from sentence_transformers import SentenceTransformer
 import streamlit as st
 
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: #f0f4f8;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
 model = joblib.load('models/logistic_bert_classifier.pkl')
 bert = SentenceTransformer('all-MiniLM-L6-v2')
 
