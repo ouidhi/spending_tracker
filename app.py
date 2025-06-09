@@ -20,8 +20,7 @@ def preprocess(df):
     df['Year'] = df['Date'].dt.year
     df['NewDescription'] = df['Description'].apply(clean_description)
     df['Amount'] = pd.to_numeric(df['Amount'])
-    filtered_df = df[df['Category'] != 'Credit Card Payment']
-    return filtered_df
+    return df
 
 def categorizer(desc):
     if re.search(r"(shoppers|rexall|pharmacy|drug)", desc):
@@ -55,6 +54,7 @@ if uploaded_file:
 
     if all(col in df.columns for col in ['Date', 'Description', 'Amount']):
         df = preprocess(df)
+        filtered_df = df[df['Category'] != 'Credit Card Payment']
 
         # BERT 
         X_input = bert.encode(df['NewDescription'])
