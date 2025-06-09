@@ -22,27 +22,7 @@ st.markdown(
         color: #E96D96; /* soft pink */
     }
 
-    /* Floating stickers */
-    .sticker1 {
-        position: fixed;
-        top: 60px;
-        right: 40px;
-        z-index: 1000;
-    }
-
-    .sticker2 {
-        position: fixed;
-        bottom: 60px;
-        left: 40px;
-        z-index: 1000;
-    }
-
-    .sticker3 {
-        position: fixed;
-        bottom: 100px;
-        right: 100px;
-        z-index: 1000;
-    }
+    
 
     /* Optional: round corners + shadow for main content */
     .block-container {
@@ -66,8 +46,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
-
 
 model = joblib.load('models/logistic_bert_classifier.pkl')
 bert = SentenceTransformer('all-MiniLM-L6-v2')
