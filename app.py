@@ -54,13 +54,14 @@ if uploaded_file:
 
     if all(col in df.columns for col in ['Date', 'Description', 'Amount']):
         df = preprocess(df)
-        filtered_df = df[df['Category'] != 'Credit Card Payment']
-
+        
         # BERT 
         X_input = bert.encode(df['NewDescription'])
         df['Category'] = model.predict(X_input)
 
         st.success("Categorization complete!")
+        filtered_df = df[df['Category'] != 'Credit Card Payment']
+
 
         # plots
         
@@ -77,7 +78,7 @@ if uploaded_file:
         # by time -----------
         st.subheader("Monthly Spending")
         
-        monthly = df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
+        monthly = filtered_df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
         monthly['Date'] = pd.to_datetime(monthly['Year'].astype(str) + '-' + monthly['Month'] + '-01', format='%Y-%b-%d')
         monthly['Label'] = monthly['Month'] + ' ' + monthly['Year'].astype(str) 
         monthly = monthly.sort_values('Date')
@@ -87,8 +88,8 @@ if uploaded_file:
 
         # dataframe
         st.subheader("Raw Categorized Data")
-        df = df[['Month', 'Year', 'Description', 'Amount', 'Category']]
-        st.dataframe(df) 
+        filtered_df = filtered_df[['Month', 'Year', 'Description', 'Amount', 'Category']]
+        st.dataframe(filtered_df) 
 
     else:
         st.error("CSV must contain 'Date', 'Description' and 'Amount' columns.")
