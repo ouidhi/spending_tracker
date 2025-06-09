@@ -7,4 +7,3 @@ sentence-transformers
 plotly
 matplotlib 
 torch
-plotly>=5.20
