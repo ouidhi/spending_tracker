@@ -52,7 +52,7 @@ uploaded_file = st.file_uploader("Choose a CSV file", type= "csv")
 if uploaded_file:
     df = pd.read_csv(uploaded_file)
 
-    if all(col in df.columns for col in ['Date', 'Description', 'Amount']):
+    if all(col in df.columns.str.lower() for col in ['date', 'description', 'amount']):
         df = preprocess(df)
         
         # BERT 
@@ -60,8 +60,8 @@ if uploaded_file:
         df['Category'] = model.predict(X_input)
 
         st.success("Categorization complete!")
+        
         filtered_df = df[df['Category'] != 'Credit Card Payment']
-
 
         # plots
         
