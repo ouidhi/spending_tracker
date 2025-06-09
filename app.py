@@ -21,7 +21,6 @@ st.markdown(
     h1, h2, h3, .stTitle, .stSubtitle {
         color: #E96D96; /* soft pink */
     }
-
     
 
     /* Optional: round corners + shadow for main content */
@@ -33,18 +32,6 @@ st.markdown(
     }
     </style>
 
-    <!-- Floating sticker images -->
-    <div class="sticker1">
-        <img src="https://media.giphy.com/media/LmNwrBhejkK9EFP504/giphy.gif" width="100">
-    </div>
-    <div class="sticker2">
-        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNjVmZmJkZDMxZGIyY2I5ZGRiYzEzYjQ3YjQwZGM1MzU5ZDg4MTE1YSZjdD1n/f9k1tV7HyORcngKF8v/giphy.gif" width="90">
-    </div>
-    <div class="sticker3">
-        <img src="https://media.giphy.com/media/xUOxf48S2WvTg6rapa/giphy.gif" width="80">
-    </div>
-    """,
-    unsafe_allow_html=True
 )
 
 model = joblib.load('models/logistic_bert_classifier.pkl')
