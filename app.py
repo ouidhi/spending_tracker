@@ -86,6 +86,7 @@ if uploaded_file:
         st.plotly_chart(fig)
 
         # 3 top 3 
+        st.subheader("Top 3 Spending Categories")
         top3 = filtered_df.groupby('Category')['Amount'].sum().sort_values(ascending=False).head(3).reset_index()
         fig = px.bar(top3, x='Category', y='Amount', title='Top 3 Spending Categories', color='Category')
         st.plotly_chart(fig)
