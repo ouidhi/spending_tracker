@@ -78,14 +78,12 @@ if uploaded_file:
 
         # by time -----------
         st.subheader("Monthly Spending")
-        
         monthly = filtered_df.groupby(['Year', 'Month'])['Amount'].sum().reset_index()
-        monthly['Date'] = pd.to_datetime(monthly['Year'].astype(str) + '-' + monthly['Month'] + '-01', format='%Y-%b-%d')
-        monthly['Label'] = monthly['Month'] + ' ' + monthly['Year'].astype(str) 
+        monthly['Date'] = pd.to_datetime(monthly['Year'].astype(str) + '-' + monthly['Month'] + '-01')
         monthly = monthly.sort_values('Date')
-        st.line_chart(monthly.set_index('Label')['Amount'])
 
-        # st.line_chart(data=monthly.set_index('Period')['Amount'])
+        fig = px.bar(monthly, x='Date', y='Amount', title='Spending by Month')
+        st.plotly_chart(fig)
 
         # dataframe
         st.subheader("Raw Categorized Data")
