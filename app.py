@@ -51,8 +51,9 @@ uploaded_file = st.file_uploader("Choose a CSV file", type= "csv")
 
 if uploaded_file:
     df = pd.read_csv(uploaded_file)
+    df.columns = df.columns.str.strip().str.title()  # Remove spaces and standardize casing
 
-    if all(col in df.columns.str.lower() for col in ['date', 'description', 'amount']):
+    if all(col in df.columns for col in ['Date', 'Description', 'Amount']):
         df = preprocess(df)
         
         # BERT 
