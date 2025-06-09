@@ -95,6 +95,7 @@ if uploaded_file:
                 st.markdown(f"### {month}")
                 month_sum = month_data.groupby('Category')['Amount'].sum().reset_index()
                 fig = px.pie(month_sum, names='Category', values='Amount')
+                st.write("Rendering plot for", month)
                 st.plotly_chart(fig)
 
         # 4 top 3 
