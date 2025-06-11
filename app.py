@@ -113,7 +113,6 @@ if uploaded_file:
         sorted_months = monthly_ranking['MonthLabel'].tolist()
 
         # Display the month names in big text
-        st.markdown("### Sorted Months Ranked by Total Spending")
         st.markdown(f"<h2 style='text-align: center; color: #4CAF50;'> {' > '.join(sorted_months)}</h2>", unsafe_allow_html=True)
 
         # categorized dataframe
