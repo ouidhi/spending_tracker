@@ -82,7 +82,7 @@ if uploaded_file:
         monthly['Date'] = pd.to_datetime(monthly['Year'].astype(str) + '-' + monthly['Month'] + '-01')
         monthly = monthly.sort_values('Date')
 
-        fig = px.bar(monthly, x='Date', y='Amount', title='Spending by Month')
+        fig = px.line(monthly, x='Date', y='Amount', title='Spending by Month')
         st.plotly_chart(fig)
 
         # 3 top 3 
@@ -92,53 +92,25 @@ if uploaded_file:
         st.plotly_chart(fig)
 
         
-        # 4 by category per month
-        st.subheader("Spending by Category (Each Month)")
-        months = filtered_df['Month'].unique()
-
-        for month in sorted(months, key=lambda m: pd.to_datetime(m, format='%b').month):
-            month_data = filtered_df[filtered_df['Month'] == month]
-            if not month_data.empty:
-                st.markdown(f"### {month}")
-                month_sum = month_data.groupby('Category')['Amount'].sum().reset_index()
-                fig = px.pie(month_sum, names='Category', values='Amount')
-                st.write("Rendering plot for", month)
-                st.plotly_chart(fig)
+        # 4 by category per month stacked chart
+        st.subheader("🧱 Monthly Spending Breakdown by Category")
+        stacked = filtered_df.groupby(['Year', 'Month', 'Category'])['Amount'].sum().reset_index()
+        stacked['Date'] = pd.to_datetime(stacked['Year'].astype(str) + '-' + stacked['Month'] + '-01')
+        stacked = stacked.sort_values('Date')
+        fig5 = px.bar(stacked, x='Date', y='Amount', color='Category', title='Spending by Category per Month')
+        st.plotly_chart(fig5, use_container_width=True)
+        
                 
-        # 5️⃣ Top 3 Categories Per Month
-        st.subheader("Top 3 Categories for Each Month")
-
-        # Get unique months ordered by date
-        month_year_combos = (
-            filtered_df[['Month', 'Year']]
-            .drop_duplicates()
-            .sort_values(by=['Year', 'Month'], key=lambda x: pd.to_datetime(x, format='%Y-%b'))
-        )
-
-        for _, row in month_year_combos.iterrows():
-            month = row['Month']
-            year = row['Year']
-    
-            # Filter for that month/year
-            subset = filtered_df[(filtered_df['Month'] == month) & (filtered_df['Year'] == year)]
-    
-            # Group and get top 3
-            top3_month = (
-                subset.groupby('Category')['Amount']
-                .sum()
-                .sort_values(ascending=False)
-                .head(3)
-                .reset_index()
-            )
-    
-            if not top3_month.empty:
-                label = f"{month} {year}"
-                st.markdown(f"### {label}")
-                fig = px.bar(top3_month, x='Category', y='Amount', title=f"Top 3 Categories - {label}", color='Category')
-                st.plotly_chart(fig)
+        # 5 months with highest to lowest spending
+        st.subheader("🔻 Months Ranked by Total Spending")
+        monthly_ranking = monthly.copy()
+        monthly_ranking['MonthLabel'] = monthly_ranking['Month'] + ' ' + monthly_ranking['Year'].astype(str)
+        monthly_ranking = monthly_ranking.sort_values(by='Amount', ascending=False)
+        fig4 = px.bar(monthly_ranking, x='MonthLabel', y='Amount', text='Amount', color='Amount')
+        st.plotly_chart(fig4, use_container_width=True)
 
 
-        # dataframe
+        # categorized dataframe
         st.subheader("Raw Categorized Data")
         filtered_df = filtered_df[['Month', 'Year', 'Description', 'Amount', 'Category']]
         st.dataframe(filtered_df) 
