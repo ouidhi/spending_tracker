@@ -99,6 +99,14 @@ if uploaded_file:
         stacked = stacked.sort_values('Date')
         fig5 = px.bar(stacked, x='Date', y='Amount', color='Category', title='Spending by Category per Month')
         st.plotly_chart(fig5, use_container_width=True)
+
+        # Extract the sorted month names
+        sorted_months = monthly_ranking['MonthLabel'].tolist()
+
+        # Display the month names in big text
+        st.markdown("### Sorted Months Ranked by Total Spending")
+        st.markdown(f"<h2 style='text-align: center; color: #4CAF50;'>🔝 {' > '.join(sorted_months)}</h2>", unsafe_allow_html=True)
+
         
                 
         # 5 months with highest to lowest spending
