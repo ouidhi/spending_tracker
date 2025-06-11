@@ -114,7 +114,7 @@ if uploaded_file:
 
         # Display the month names in big text
         st.markdown("### Sorted Months Ranked by Total Spending")
-        st.markdown(f"<h2 style='text-align: center; color: #4CAF50;'>🔝 {' > '.join(sorted_months)}</h2>", unsafe_allow_html=True)
+        st.markdown(f"<h2 style='text-align: center; color: #4CAF50;'> {' > '.join(sorted_months)}</h2>", unsafe_allow_html=True)
 
         # categorized dataframe
         st.subheader("Raw Categorized Data")
