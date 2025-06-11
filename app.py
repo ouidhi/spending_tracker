@@ -106,8 +106,8 @@ if uploaded_file:
         monthly_ranking = monthly.copy()
         monthly_ranking['MonthLabel'] = monthly_ranking['Month'] + ' ' + monthly_ranking['Year'].astype(str)
         monthly_ranking = monthly_ranking.sort_values(by='Amount', ascending=False)
-        fig4 = px.bar(monthly_ranking, x='MonthLabel', y='Amount', text='Amount', color='Amount')
-        st.plotly_chart(fig4, use_container_width=True)
+        # fig4 = px.bar(monthly_ranking, x='MonthLabel', y='Amount', text='Amount', color='Amount')
+        # st.plotly_chart(fig4, use_container_width=True)
 
         # Extract the sorted month names
         sorted_months = monthly_ranking['MonthLabel'].tolist()
