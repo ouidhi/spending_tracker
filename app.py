@@ -85,23 +85,7 @@ if uploaded_file:
         fig = px.line(monthly, x='Date', y='Amount')
         st.plotly_chart(fig)
 
-        # 3 top 3 
-        st.subheader("Top 3 Spending Categories")
-        top3 = filtered_df.groupby('Category')['Amount'].sum().sort_values(ascending=False).head(3).reset_index()
-        fig = px.bar(top3, x='Category', y='Amount', color='Category')
-        st.plotly_chart(fig)
-
-        
-        # 4 by category per month stacked chart
-        st.subheader("🧱 Monthly Spending Breakdown by Category")
-        stacked = filtered_df.groupby(['Year', 'Month', 'Category'])['Amount'].sum().reset_index()
-        stacked['Date'] = pd.to_datetime(stacked['Year'].astype(str) + '-' + stacked['Month'] + '-01')
-        stacked = stacked.sort_values('Date')
-        fig5 = px.bar(stacked, x='Date', y='Amount', color='Category')
-        st.plotly_chart(fig5, use_container_width=True)
-        
-                
-        # 5 months with highest to lowest spending
+        # 3 months with highest to lowest spending
         st.subheader("🔻 Months Ranked by Total Spending")
         monthly_ranking = monthly.copy()
         monthly_ranking['MonthLabel'] = monthly_ranking['Month'] + ' ' + monthly_ranking['Year'].astype(str)
@@ -115,7 +99,24 @@ if uploaded_file:
         # Display the month names in big text
         st.markdown(f"<h2 style='text-align: center; color: #4CAF50;'> {' > '.join(sorted_months)}</h2>", unsafe_allow_html=True)
 
-        # categorized dataframe
+
+        # 4 top 3 
+        st.subheader("Top 3 Spending Categories")
+        top3 = filtered_df.groupby('Category')['Amount'].sum().sort_values(ascending=False).head(3).reset_index()
+        fig = px.bar(top3, x='Category', y='Amount', color='Category')
+        st.plotly_chart(fig)
+
+        
+        # 5 by category per month stacked chart
+        st.subheader("🧱 Monthly Spending Breakdown by Category")
+        stacked = filtered_df.groupby(['Year', 'Month', 'Category'])['Amount'].sum().reset_index()
+        stacked['Date'] = pd.to_datetime(stacked['Year'].astype(str) + '-' + stacked['Month'] + '-01')
+        stacked = stacked.sort_values('Date')
+        fig5 = px.bar(stacked, x='Date', y='Amount', color='Category')
+        st.plotly_chart(fig5, use_container_width=True)
+        
+                
+        # 6 categorized dataframe
         st.subheader("Raw Categorized Data")
         filtered_df = filtered_df[['Month', 'Year', 'Description', 'Amount', 'Category']]
         st.dataframe(filtered_df) 
