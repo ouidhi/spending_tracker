@@ -86,7 +86,7 @@ if uploaded_file:
         st.plotly_chart(fig)
 
         # 3 months with highest to lowest spending
-        st.subheader("🔻 Months Ranked by Total Spending")
+        st.subheader("Months Ranked by Total Spending")
         monthly_ranking = monthly.copy()
         monthly_ranking['MonthLabel'] = monthly_ranking['Month'] + ' ' + monthly_ranking['Year'].astype(str)
         monthly_ranking = monthly_ranking.sort_values(by='Amount', ascending=False)
@@ -108,7 +108,7 @@ if uploaded_file:
 
         
         # 5 by category per month stacked chart
-        st.subheader("🧱 Monthly Spending Breakdown by Category")
+        st.subheader("Monthly Spending Breakdown by Category")
         stacked = filtered_df.groupby(['Year', 'Month', 'Category'])['Amount'].sum().reset_index()
         stacked['Date'] = pd.to_datetime(stacked['Year'].astype(str) + '-' + stacked['Month'] + '-01')
         stacked = stacked.sort_values('Date')
