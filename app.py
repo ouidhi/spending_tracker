@@ -72,7 +72,7 @@ if uploaded_file:
         import plotly.express as px
 
         category_sums = filtered_df.groupby('Category')['Amount'].sum().reset_index()
-        fig = px.pie(category_sums, names='Category', values='Amount', title='Spending by Category')
+        fig = px.pie(category_sums, names='Category', values='Amount')
         st.plotly_chart(fig)
 
 
@@ -82,7 +82,7 @@ if uploaded_file:
         monthly['Date'] = pd.to_datetime(monthly['Year'].astype(str) + '-' + monthly['Month'] + '-01')
         monthly = monthly.sort_values('Date')
 
-        fig = px.line(monthly, x='Date', y='Amount', title='Spending by Month')
+        fig = px.line(monthly, x='Date', y='Amount')
         st.plotly_chart(fig)
 
         # 3 top 3 
@@ -97,7 +97,7 @@ if uploaded_file:
         stacked = filtered_df.groupby(['Year', 'Month', 'Category'])['Amount'].sum().reset_index()
         stacked['Date'] = pd.to_datetime(stacked['Year'].astype(str) + '-' + stacked['Month'] + '-01')
         stacked = stacked.sort_values('Date')
-        fig5 = px.bar(stacked, x='Date', y='Amount', color='Category', title='Spending by Category per Month')
+        fig5 = px.bar(stacked, x='Date', y='Amount', color='Category')
         st.plotly_chart(fig5, use_container_width=True)
         
                 
