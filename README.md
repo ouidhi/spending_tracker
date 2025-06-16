@@ -103,5 +103,7 @@ Built an interactive app for users to upload their own CSV and:
 
 ## 📬 Contact
 
-Created by **Vidhi**  
 🔗 [LinkedIn](https://www.linkedin.com/in/vidhi-parmar777/) | [Email](vidhi30th@gmail.com) 
+
+Created by **Vidhi**  
+
