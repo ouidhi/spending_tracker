@@ -94,8 +94,16 @@ Built an interactive app for users to upload their own CSV and:
   - Stacked bar (category breakdown per month)
   - Raw categorized transaction table
 
-[Sample Dashboard]()
+[Sample Dashboard](sample_dashboard.pdf)
+
 ---
 
+Upload your credit card statement and check out the app yourself! 
+> [Click here](https://spendingtracker.streamlit.app/)
 
-Check out the ap yourself! > [Click here](https://spendingtracker.streamlit.app/)
+---
+
+## 📬 Contact
+
+Created by **Vidhi**  
+🔗 [LinkedIn](https://www.linkedin.com/in/vidhi-parmar777/) | [Email](vidhi30th@gmail.com) 
