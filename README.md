@@ -96,9 +96,8 @@ Built an interactive app for users to upload their own CSV and:
 
 [Sample Dashboard](sample_dashboard.pdf)
 
----
+### Upload your credit card statement and check out the app yourself! 
 
-Upload your credit card statement and check out the app yourself! 
 > [Click here](https://spendingtracker.streamlit.app/)
 
 
