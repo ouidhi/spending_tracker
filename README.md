@@ -1,16 +1,20 @@
-# 💸 Credit Card Transaction Categorizer & Budget Forecasting
-(SQL + ML + Streamlit)
+# 💸 Credit Card Transaction Categorizer 
 
-A data science project built using my **own real credit card transaction data** from April 2024 to April 2025. This project applies **SQL, Python, and ML** to analyze personal finance patterns, detect anomalies, and visualize spending trends using **Streamlit**.
+Automatically categorize your credit card transactions using NLP + Machine Learning, and visualize your spending trends in a clean, interactive Streamlit dashboard.
 
-> Predict categories from messy transaction descriptions and build monthly spending dashboards — powered by NLP, machine learning, and time-series forecasting.
+---
+## Project Overview
+
+This project helps users upload their personal credit card transaction data and receive:
+- Automated transaction categorization using both Logistic Regression and BERT sentence embeddings.
+- Visual dashboards summarizing monthly spending, top categories, and detailed breakdowns.
+- A live Streamlit app that works directly with user-uploaded CSVs.
 
 ---
 
 ## 🛠 Tech Stack
 
-- **Python**: Pandas, NumPy, Matplotlib, Scikit-learn
-- **SQL**: SQLite (or PostgreSQL/MySQL)
+- **Python**: Pandas, NumPy, Matplotlib, Scikit-learn, BERT sentence_transformers
 - **Streamlit**: Interactive dashboard for visualization & trend exploration
 - **Jupyter Notebook**: Analysis + Modeling
 
@@ -25,112 +29,69 @@ A data science project built using my **own real credit card transaction data** 
   - `Description`: Vendor or payment detail
   - `Amount`: All transactions positive; categorized manually
   - `Type`: Purchase or payment
-  - `Final_Amount`: negative for spending and positive for card payment 
-  - `Category`: Manually labeled (e.g., Groceries, Transit, Self-care, Payments)
-
-> 🔐 Note: All sensitive data is anonymized for repo sharing.
+  - `Final_Amount`: negative for spending and positive for card payment
+  - `Category`: Manually labeled (e.g., Groceries, Transit, Shopping etc.)
 
 ---
 
 ## 🧠 Workflow
 
-### 1. Data Cleaning
-- Removed null entries and duplicates
-- Converted date formats and normalized descriptions
-- Made all **spending negative** and **credit card payments positive**
-
-```python
-def clean_description(desc):
-    desc = desc.lower()
-    desc = re.sub(r'[^a-zA-Z\s]', '', desc)
-    desc = re.sub(r'\s+', ' ', desc).strip()
-    return desc
-```
+### 1. Data Preprocessing 
+- Removed null entries and duplicates.
+- Converted date formats and normalized descriptions.
+- Categorized types as purchase and payment.
 
 ### 2. Manual Categorization
-- Used custom rules to map transaction descriptions to categories
-- Added a `category` column using personal insight
+- Regex-based categorize() function assigns a label (e.g., Groceries, Transport) based on keywords in NewDescription.
+- This forms the target Category column used for training/testing machine learning models.
 
 ### 3. Feature Engineering (Text → Vectors)
 
-TF-IDF (Simple & Effective)
+Text data is converted into numerical form using two NLP approaches:
 
-from sklearn.feature_extraction.text import TfidfVectorizer
+- TF-IDF Vectorization: captures word importance across all transactions
+- BERT Embeddings: captures semantic meaning of the transaction descriptions
 
-vectorizer = TfidfVectorizer()
-X = vectorizer.fit_transform(df['cleaned_description'])
+### 4. Model Training and Evaluation
 
-### 4. Train the Classifier
+Trained two logistic regression classifiers and evaluated performance using classification reports and confusion matrices.
 
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
+**TF-IDF + Logistic Regression**
 
-X_train, X_test, y_train, y_test = train_test_split(X, df['Category'], test_size=0.2)
-model = LogisticRegression()
-model.fit(X_train, y_train)
+**Accuracy: 72%**
 
-Save the model and vectorizer:
+**Weighted Avg F1-Score: 0.69**
 
-joblib.dump(model, 'models/classifier.pkl')
-joblib.dump(vectorizer, 'models/vectorizer.pkl')
+- Transforms cleaned descriptions using TfidfVectorizer (word + bigram features) and trains a logistic regression classifier.
 
-### 5. Predict New Transactions
+![image](https://github.com/user-attachments/assets/2f0141cf-2f40-4de0-9277-721612f2d149)
 
-def predict_category(text):
-    cleaned = clean_description(text)
-    vec = vectorizer.transform([cleaned])
-    return model.predict(vec)[0]
+**BERT Embeddings + Logistic Regression**
 
+- Uses SentenceTransformer (all-MiniLM-L6-v2) to convert descriptions into contextual sentence embeddings, followed by logistic regression.
+  
+![image](https://github.com/user-attachments/assets/50a1b93d-ab79-41b4-9f60-f33fbce0cc40)
+
+**Accuracy: 87%**
+
+**Weighted Avg F1-Score: 0.88**
+
+The final deployed model uses BERT embeddings with logistic regression, because:
+- It generalizes better to real-world transaction data, which is often noisy, or inconsistent.
+- It significantly outperforms TF-IDF in terms of precision, recall, and F1-score across nearly all categories.
+- It handles semantic similarity — grouping variations like “Tim Hortons,” and “TimHortons123” more effectively.
+
+
+### 5. Streamlit Dashboard
+
+Built an interactive app for users to upload their own CSV and:
+- Auto-categorize transactions using the BERT model
+- View spending insights via:
+  - Pie chart (by category)
+  - Line chart (monthly trend)
+  - Ranked months by spending
+  - Top 3 categories
+  - Stacked bar (category breakdown per month)
+  - Raw categorized transaction table
     
-### 6. SQL Aggregation
-- Used SQL to query average spend, category-wise monthly trends, etc.
-- Flagged potential outliers (e.g., unusually high daily spending)
-
-### 7. Feature Engineering
-- Created new features: transaction frequency, weekday vs. weekend spending, etc.
-
-### 8. Forecast Future Spending
-Use time series tools like Prophet or ARIMA:
-Group totals by Month x Category
-Predict next month's top 3 categories based on historical data
-
-### 9. Streamlit Dashboard
-- Built an interactive web app to explore:
-  - Weekly/monthly spending
-  - Category-wise expenses
-  - Outlier alerts
-  - Fraud detection model outputs
-
 ---
-
-## 🚀 Future Enhancements
-
-- Add more advanced fraud logic (sequence modeling, clustering)
-- Support multi-account aggregation (credit + debit)
-- Integrate with Plaid or YNAB API for live updates
-- Add budgeting goals and alert notifications
-
----
-
-## 🎯 Skills Highlighted
-
-- Personal Finance Analysis
-- Data Cleaning & Manual Categorization
-- SQL + Python Integration
-- Feature Engineering
-- ML for Anomaly/Fraud Detection
-- Streamlit for Dashboarding
-- Data Storytelling from Raw Life Data
-
----
-
-## 📸 Demo Screenshots (Coming Soon)
-
-> Visuals of the dashboard, monthly breakdowns, anomaly detection, etc.
-
----
-
-## 📝 License
-
-MIT License.  
-This project is for **educational and demonstrative purposes only** — not for commercial finance use.
