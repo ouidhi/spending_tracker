@@ -93,5 +93,9 @@ Built an interactive app for users to upload their own CSV and:
   - Top 3 categories
   - Stacked bar (category breakdown per month)
   - Raw categorized transaction table
-    
+
+[Sample Dashboard]()
 ---
+
+
+Check out the ap yourself! > [Click here](https://spendingtracker.streamlit.app/)
