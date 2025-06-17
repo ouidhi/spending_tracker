@@ -56,7 +56,7 @@ Text data is converted into numerical form using two NLP approaches:
 
 Trained two logistic regression classifiers and evaluated performance using classification reports and confusion matrices.
 
-**TF-IDF + Logistic Regression**
+**TF-IDF + Logistic Regression**❌
 
 **Accuracy: 72%**
 
@@ -66,7 +66,7 @@ Trained two logistic regression classifiers and evaluated performance using clas
 
 ![image](https://github.com/user-attachments/assets/2f0141cf-2f40-4de0-9277-721612f2d149)
 
-**BERT Embeddings + Logistic Regression**
+**BERT Embeddings + Logistic Regression**✅
 
 - Uses SentenceTransformer (all-MiniLM-L6-v2) to convert descriptions into contextual sentence embeddings, followed by logistic regression.
   
@@ -76,7 +76,7 @@ Trained two logistic regression classifiers and evaluated performance using clas
 
 **Weighted Avg F1-Score: 0.88**
 
-The final deployed model uses BERT embeddings with logistic regression, because:
+The final deployed model uses **BERT embeddings** with logistic regression, because:
 - It generalizes better to real-world transaction data, which is often noisy, or inconsistent.
 - It significantly outperforms TF-IDF in terms of precision, recall, and F1-score across nearly all categories.
 - It handles semantic similarity — grouping variations like “Tim Hortons,” and “TimHortons123” more effectively.
