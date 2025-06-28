@@ -103,6 +103,6 @@ Built an interactive app for users to upload their own CSV and:
 
 ## 📬 Contact
 
-🔗 [LinkedIn](https://www.linkedin.com/in/vidhi-parmar777/) | [Email](vidhi30th@gmail.com) 
+🔗 [LinkedIn](https://www.linkedin.com/in/vidhi-parmar1/) | [Email](vidhi30th@gmail.com) 
 
 
