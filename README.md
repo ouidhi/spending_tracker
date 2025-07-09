@@ -34,6 +34,12 @@ This project helps users upload their personal credit card transaction data and 
 
 ---
 
+
+### Upload your credit card statement and check out the app yourself! 
+
+> [Click here](https://spendingtracker.streamlit.app/)
+
+
 ## 🧠 Workflow
 
 ### 1. Data Preprocessing 
@@ -95,11 +101,6 @@ Built an interactive app for users to upload their own CSV and:
   - Raw categorized transaction table
 
 [Sample Dashboard](sample_dashboard.pdf)
-
-### Upload your credit card statement and check out the app yourself! 
-
-> [Click here](https://spendingtracker.streamlit.app/)
-
 
 ## 📬 Contact
 
