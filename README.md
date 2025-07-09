@@ -62,6 +62,8 @@ Text data is converted into numerical form using two NLP approaches:
 
 Trained two logistic regression classifiers and evaluated performance using classification reports and confusion matrices.
 
+train_test_split() is used to automatially split the data into 2 sets: 80% training and 20% testing. 
+
 **TF-IDF + Logistic Regression** ❌
 
 **Accuracy: 72%**
