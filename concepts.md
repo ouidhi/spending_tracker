@@ -19,7 +19,7 @@ In this project, TF-IDF transforms transaction descriptions into numerical vecto
 
 - TfidfVectorizer is a class from scikit-learn that transforms raw text into numerical feature vectors.
 - It's used to reflect how important a word is to a document in a collection (in my case, collection is the NewDescription column)
-- - fit_transform() learns the vocabulary from the NewDescription column and transforms each text into a sparse numerical matrix (rows = samples, columns = features).
+- fit_transform() learns the vocabulary from the NewDescription column and transforms each text into a sparse numerical matrix (rows = samples, columns = features).
   - Output: X_tf is a sparse matrix of shape [number_of_samples, number_of_features].
 
 ``` python
