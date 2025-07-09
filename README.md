@@ -1,6 +1,6 @@
 # 💸 Credit Card Transaction Categorizer 
 
-Automatically categorize your credit card transactions using NLP + Machine Learning, and visualize your spending trends in a clean, interactive Streamlit dashboard.
+Automatically categorize your credit card transactions using NLP, and visualize your spending trends in a clean, interactive Streamlit dashboard.
 
 ---
 ## Project Overview
