@@ -1,4 +1,4 @@
-# 💸 Credit Card Transaction Categorizer 
+# Credit Card Transaction Categorizer 
 
 Automatically categorize your credit card transactions using NLP, and visualize your spending trends in a clean, interactive Streamlit dashboard.
 
@@ -12,7 +12,7 @@ This project helps users upload their personal credit card transaction data and 
 
 ---
 
-## 🛠 Tech Stack
+## Tech Stack
 
 - **Python**: Pandas, NumPy, Matplotlib, Scikit-learn, BERT sentence_transformers
 - **Streamlit**: Interactive dashboard for visualization & trend exploration
@@ -21,7 +21,7 @@ This project helps users upload their personal credit card transaction data and 
 ---
 
 
-## 📂 Data Overview
+## Data Overview
 
 - **Time Period**: April 1, 2024 – April 1, 2025  
 - **Columns**:
@@ -40,7 +40,7 @@ This project helps users upload their personal credit card transaction data and 
 > [Click here](https://spendingtracker.streamlit.app/)
 
 
-## 🧠 Workflow
+## Workflow
 
 ### 1. Data Preprocessing 
 - Removed null entries and duplicates.
