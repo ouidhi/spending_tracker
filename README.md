@@ -2,7 +2,6 @@
 
 Automatically categorize your credit card transactions using NLP, and visualize your spending trends in a clean, interactive Streamlit dashboard.
 
----
 ## Project Overview
 
 This project helps users upload their personal credit card transaction data and receive:
