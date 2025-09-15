@@ -83,10 +83,10 @@ if uploaded_file:
 
         # --- Row 3 (full width) ---
         st.subheader("Months Ranked by Total Spending")
-            monthly_ranking = monthly.copy()
-            monthly_ranking['MonthLabel'] = monthly_ranking['Month'] + ' ' + monthly_ranking['Year'].astype(str)
-            monthly_ranking = monthly_ranking.sort_values(by='Amount', ascending=False)
-            st.markdown(f"<h3 style='text-align: center; color: #4CAF50;'> {' > '.join(monthly_ranking['MonthLabel'].tolist())}</h3>", unsafe_allow_html=True)
+        monthly_ranking = monthly.copy()
+        monthly_ranking['MonthLabel'] = monthly_ranking['Month'] + ' ' + monthly_ranking['Year'].astype(str)
+        monthly_ranking = monthly_ranking.sort_values(by='Amount', ascending=False)
+        st.markdown(f"<h3 style='text-align: center; color: #4CAF50;'> {' > '.join(monthly_ranking['MonthLabel'].tolist())}</h3>", unsafe_allow_html=True)
 
 
         # --- Row 4 (full width) ---
