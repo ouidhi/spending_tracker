@@ -71,7 +71,7 @@ if uploaded_file:
             stacked = filtered_df.groupby(['Year', 'Month', 'Category'])['Amount'].sum().reset_index()
             stacked['Date'] = pd.to_datetime(stacked['Year'].astype(str) + '-' + stacked['Month'] + '-01')
             stacked = stacked.sort_values('Date')
-            fig5 = px.bar(stacked, x='Date', y='Amount', color='Category', width=700, height=300)
+            fig5 = px.bar(stacked, x='Date', y='Amount', color='Category', width=700, height=350)
             st.plotly_chart(fig5, use_container_width=True)
         
         with col4:
