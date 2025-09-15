@@ -67,12 +67,13 @@ if uploaded_file:
         col3, col4 = st.columns(2)
 
         with col3:
-            st.subheader("Months Ranked by Total Spending")
-            monthly_ranking = monthly.copy()
-            monthly_ranking['MonthLabel'] = monthly_ranking['Month'] + ' ' + monthly_ranking['Year'].astype(str)
-            monthly_ranking = monthly_ranking.sort_values(by='Amount', ascending=False)
-            st.markdown(f"<h3 style='text-align: center; color: #4CAF50;'> {' > '.join(monthly_ranking['MonthLabel'].tolist())}</h3>", unsafe_allow_html=True)
-
+            st.subheader("Monthly Spending Breakdown by Category")
+            stacked = filtered_df.groupby(['Year', 'Month', 'Category'])['Amount'].sum().reset_index()
+            stacked['Date'] = pd.to_datetime(stacked['Year'].astype(str) + '-' + stacked['Month'] + '-01')
+            stacked = stacked.sort_values('Date')
+            fig5 = px.bar(stacked, x='Date', y='Amount', color='Category')
+            st.plotly_chart(fig5, use_container_width=True)
+        
         with col4:
             st.subheader("Top 3 Spending Categories")
             top3 = filtered_df.groupby('Category')['Amount'].sum().sort_values(ascending=False).head(3).reset_index()
@@ -81,12 +82,11 @@ if uploaded_file:
 
 
         # --- Row 3 (full width) ---
-        st.subheader("Monthly Spending Breakdown by Category")
-        stacked = filtered_df.groupby(['Year', 'Month', 'Category'])['Amount'].sum().reset_index()
-        stacked['Date'] = pd.to_datetime(stacked['Year'].astype(str) + '-' + stacked['Month'] + '-01')
-        stacked = stacked.sort_values('Date')
-        fig5 = px.bar(stacked, x='Date', y='Amount', color='Category')
-        st.plotly_chart(fig5, use_container_width=True)
+        st.subheader("Months Ranked by Total Spending")
+            monthly_ranking = monthly.copy()
+            monthly_ranking['MonthLabel'] = monthly_ranking['Month'] + ' ' + monthly_ranking['Year'].astype(str)
+            monthly_ranking = monthly_ranking.sort_values(by='Amount', ascending=False)
+            st.markdown(f"<h3 style='text-align: center; color: #4CAF50;'> {' > '.join(monthly_ranking['MonthLabel'].tolist())}</h3>", unsafe_allow_html=True)
 
 
         # --- Row 4 (full width) ---
