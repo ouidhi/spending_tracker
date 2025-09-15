@@ -4,6 +4,7 @@ import joblib
 import matplotlib.pyplot as plt
 from sentence_transformers import SentenceTransformer
 import streamlit as st
+import plotly.express as px
 
 model = joblib.load('models/logistic_bert_classifier.pkl')
 bert = SentenceTransformer('all-MiniLM-L6-v2')
