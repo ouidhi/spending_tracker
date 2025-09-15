@@ -51,7 +51,7 @@ if uploaded_file:
         with col1:
             st.subheader("Spending by Category")
             category_sums = filtered_df.groupby('Category')['Amount'].sum().reset_index()
-            fig1 = px.pie(category_sums, names='Category', values='Amount', width=700, height=200)
+            fig1 = px.pie(category_sums, names='Category', values='Amount', width=700, height=400)
             st.plotly_chart(fig1, use_container_width=True)
 
         with col2:
