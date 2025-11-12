@@ -86,7 +86,7 @@ Trained two logistic regression classifiers and evaluated performance using clas
 The final deployed model uses **BERT embeddings** with logistic regression, because:
 - It generalizes better to real-world transaction data, which is often noisy, or inconsistent.
 - It significantly outperforms TF-IDF in terms of precision, recall, and F1-score across nearly all categories.
-- It handles semantic similarity — grouping variations like “Tim Hortons,” and “TimHortons123” more effectively.
+- It handles semantic similarity - grouping variations like “Tim Hortons,” and “TimHortons123” more effectively.
 
 
 ### 5. Streamlit Dashboard
