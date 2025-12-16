@@ -103,7 +103,7 @@ Built an interactive app for users to upload their own CSV and:
 
 [Sample Dashboard](sample_dashboard.pdf)
 
-## 📬 Contact
+### 📬 Contact
 
 🔗 [LinkedIn](https://www.linkedin.com/in/vidhi-parmar1/) | [Email](vidhi30th@gmail.com) 
 
