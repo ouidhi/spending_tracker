@@ -24,6 +24,10 @@ class BertVectorizer(TransformerMixin):
 class TransactionClassifier:
     def __init__(self, model_path):
         self.model = joblib.load(model_path)
+        if hasattr(self.model, 'named_steps'):
+            for name, step in self.model.named_steps.items():
+                if hasattr(step, 'model') and hasattr(step.model, 'to'):
+                    step.model = step.model.to('cpu')
     
     def predict(self, descriptions):
         return self.model.predict(descriptions)

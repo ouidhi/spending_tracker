@@ -2,10 +2,6 @@
 
 Automatically categorize your financial transactions using NLP, and visualize your spending trends in a clean, interactive Streamlit dashboard.
 
-Upload your credit card statement and check out the app yourself!
-
-[Click here (˶ᵔ ᵕ ᵔ˶)](https://spendingtracker.streamlit.app/)
-
 ## Project Overview
 
 This project helps users upload their transaction data and receive:
@@ -28,6 +24,21 @@ This project helps users upload their transaction data and receive:
 **Selected Feature**: Transaction description  
 **Target**: Category (10 categories including Food & Dining, Transportation, Shopping & Retail, Income, etc.)
 
+## Getting Started
+
+### Installation
+
+```bash
+# Clone repository
+git clone <repository-url>
+cd spending_tracker
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run Streamlit app
+streamlit run app.py
+```
 
 ## Workflow
 
@@ -55,7 +66,7 @@ This project helps users upload their transaction data and receive:
 
 **Confusion Matrix:**
 
-![Confusion Matrix](notebooks/ConfusionMatrix.png)
+![Confusion Matrix](assets/ConfusionMatrix.png)
 
 ### 3. Streamlit Dashboard (`app.py`)
 
@@ -68,28 +79,15 @@ Built an interactive app for users to upload their own files and:
   - Raw categorized transaction table
   - Download categorized data as CSV
 
+![start page](assets/start_page.png)
+![Dashboard](assets/dashboard.png)
+
 **Features:**
 - Smart column detection (auto-suggests description, date, amount columns)
 - Supports multiple file formats (CSV, Excel, Parquet)
 - Beautiful gradient UI with interactive Plotly charts
 - Real-time processing with progress indicators
 
-
-## Getting Started
-
-### Installation
-
-```bash
-# Clone repository
-git clone <repository-url>
-cd spending_tracker
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Run Streamlit app
-streamlit run app.py
-```
 
 ## Contact ⋆˙⟡
 
