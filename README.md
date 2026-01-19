@@ -1,107 +1,91 @@
-# Credit Card Transaction Categorizer 
+# Spending Categorizer 
 
-Automatically categorize your credit card transactions using NLP, and visualize your spending trends in a clean, interactive Streamlit dashboard.
+Automatically categorize your financial transactions using NLP, and visualize your spending trends in a clean, interactive Streamlit dashboard.
 
 ## Project Overview
 
-This project helps users upload their personal credit card transaction data and receive:
-- Automated transaction categorization using both Logistic Regression and BERT sentence embeddings.
+This project helps users upload their transaction data and receive:
+- Automated transaction categorization using BERT sentence embeddings and Logistic Regression.
 - Visual dashboards summarizing monthly spending, top categories, and detailed breakdowns.
-- A live Streamlit app that works directly with user-uploaded CSVs.
+- A live Streamlit app that works directly with user-uploaded files (CSV, Excel, Parquet).
 
----
 
 ## Tech Stack
 
-- **Python**: Pandas, NumPy, Matplotlib, Scikit-learn, BERT sentence_transformers
+- **Python**: Pandas, Scikit-learn, BERT sentence-transformers, Plotly
 - **Streamlit**: Interactive dashboard for visualization & trend exploration
-- **Jupyter Notebook**: Analysis + Modeling
-
----
+- **Jupyter Notebook**: Data preprocessing & model training
 
 
-## Data Overview
+## Dataset
 
-- **Time Period**: April 1, 2024 – April 1, 2025  
-- **Columns**:
-  - `Date`: Date of transaction
-  - `Description`: Vendor or payment detail
-  - `Amount`: All transactions positive; categorized manually
-  - `Type`: Purchase or payment
-  - `Final_Amount`: negative for spending and positive for card payment
-  - `Category`: Manually labeled (e.g., Groceries, Transit, Shopping etc.)
-
----
-
-
-### Upload your credit card statement and check out the app yourself! 
-
-> [Click here](https://spendingtracker.streamlit.app/)
+**Source**: [Transaction Categorization](https://huggingface.co/datasets/mitulshah/transaction-categorization)  
+**Size**: 4,501,043 transactions  
+**Selected Feature**: Transaction description  
+**Target**: Category (10 categories including Food & Dining, Transportation, Shopping & Retail, Income, etc.)
 
 
 ## Workflow
 
-### 1. Data Preprocessing 
-- Removed null entries and duplicates.
-- Converted date formats and normalized descriptions.
-- Categorized types as purchase and payment.
+### 1. Data Preprocessing (`preprocessing.ipynb`)
+- Removed null entries and special characters
+- Converted text to lowercase and normalized whitespace
+- Created clean description column for model input
 
-### 2. Manual Categorization
-- Regex-based categorize() function assigns a label (e.g., Groceries, Transport) based on keywords in NewDescription.
-- This forms the target Category column used for training/testing machine learning models.
+### 2. Model Training (`classifier.ipynb`)
 
-### 3. Feature Engineering (Text → Vectors)
+**BERT Embeddings + Logistic Regression** 
 
-Text data is converted into numerical form using two NLP approaches:
+- Uses SentenceTransformer (`all-MiniLM-L6-v2`) to convert descriptions into contextual sentence embeddings
+- Trained on 80,000 samples (balanced across 10 categories)
+- Tested on 20,000 samples
 
-- TF-IDF Vectorization: captures word importance across all transactions
-- BERT Embeddings: captures semantic meaning of the transaction descriptions
+**Performance Metrics:**
+- **Accuracy: 98.05%**
+- **Weighted Avg F1-Score: 0.98**
 
-### 4. Model Training and Evaluation
+**Why BERT?**
+- Handles semantic similarity effectively (e.g., "Starbucks Coffee" and "STARBUCKS #123")
+- Generalizes better to real-world transaction data with inconsistent formatting
+- Significantly outperforms TF-IDF in precision, recall, and F1-score
 
-Trained two logistic regression classifiers and evaluated performance using classification reports and confusion matrices.
+**Confusion Matrix:**
 
-**train_test_split()** is used to automatially split the data into 2 sets: 80% training and 20% testing. 
+![Confusion Matrix](notebooks/ConfusionMatrix.png)
 
-**TF-IDF + Logistic Regression** ❌
+### 3. Streamlit Dashboard (`app.py`)
 
-**Accuracy: 72%**
-
-**Weighted Avg F1-Score: 0.69**
-
-- Transforms cleaned descriptions using TfidfVectorizer (word + bigram features) and trains a logistic regression classifier.
-
-![image](https://github.com/user-attachments/assets/2f0141cf-2f40-4de0-9277-721612f2d149)
-
-**BERT Embeddings + Logistic Regression** ✅
-
-- Uses SentenceTransformer (all-MiniLM-L6-v2) to convert descriptions into contextual sentence embeddings, followed by logistic regression.
-  
-![image](https://github.com/user-attachments/assets/50a1b93d-ab79-41b4-9f60-f33fbce0cc40)
-
-**Accuracy: 87%**
-
-**Weighted Avg F1-Score: 0.88**
-
-The final deployed model uses **BERT embeddings** with logistic regression, because:
-- It generalizes better to real-world transaction data, which is often noisy, or inconsistent.
-- It significantly outperforms TF-IDF in terms of precision, recall, and F1-score across nearly all categories.
-- It handles semantic similarity - grouping variations like “Tim Hortons,” and “TimHortons123” more effectively.
-
-
-### 5. Streamlit Dashboard
-
-Built an interactive app for users to upload their own CSV and:
+Built an interactive app for users to upload their own files and:
 - Auto-categorize transactions using the BERT model
 - View spending insights via:
-  - Pie chart (by category)
-  - Line chart (monthly trend)
-  - Ranked months by spending
-  - Top 3 categories
-  - Stacked bar (category breakdown per month)
+  - Monthly spending trend (line chart)
+  - Top 5 spending categories (bar chart)
+  - Top spending months
   - Raw categorized transaction table
+  - Download categorized data as CSV
 
-[Sample Dashboard](sample_dashboard.pdf)
+**Features:**
+- Smart column detection (auto-suggests description, date, amount columns)
+- Supports multiple file formats (CSV, Excel, Parquet)
+- Beautiful gradient UI with interactive Plotly charts
+- Real-time processing with progress indicators
+
+
+## Getting Started
+
+### Installation
+
+```bash
+# Clone repository
+git clone <repository-url>
+cd spending_tracker
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run Streamlit app
+streamlit run app.py
+```
 
 ## Contact ⋆˙⟡
 
