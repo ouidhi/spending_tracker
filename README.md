@@ -2,6 +2,10 @@
 
 Automatically categorize your financial transactions using NLP, and visualize your spending trends in a clean, interactive Streamlit dashboard.
 
+Upload your credit card statement and check out the app yourself!
+
+[Click here (˶ᵔ ᵕ ᵔ˶)](https://spendingtracker.streamlit.app/)
+
 ## Project Overview
 
 This project helps users upload their transaction data and receive:
